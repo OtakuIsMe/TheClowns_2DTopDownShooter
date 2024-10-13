@@ -7,12 +7,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private GameObject spawnRing;
 
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
+    private PlayerController playerPos;
 
     private void Awake()
     {
@@ -20,6 +22,12 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        playerPos = GetComponent<PlayerController>();
+
+        if (spawnRing == null)
+        {
+            spawnRing = transform.Find("SpawnRing").gameObject;
+        }
     }
 
     private void OnEnable()
@@ -35,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //DetectPlayerFacingDirection();
+        MouseFollowWithOffset();
         AdjustPlayerFacingDirection();
         Move();
     }
@@ -69,6 +79,24 @@ public class PlayerController : MonoBehaviour
         else
         {
             mySpriteRenderer.flipX = false;
+        }
+    }
+
+    private void MouseFollowWithOffset()
+    {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mouseWorldPosition - transform.position;
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(playerPos.transform.position);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        if (direction.x < playerScreenPoint.x)
+        {
+            spawnRing.transform.rotation = Quaternion.Euler(0f, 0f, angle); 
+        }
+        else
+        {
+            spawnRing.transform.rotation = Quaternion.Euler(0f, -180f, angle);
         }
     }
 }
