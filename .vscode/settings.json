@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TheClowns_2DTopDownShooter.sln"
+    "dotnet.defaultSolution": "TheClowns_TopDownShooter.sln"
 }

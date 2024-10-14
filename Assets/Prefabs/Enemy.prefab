@@ -119,3 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced38fb97f588ee489d823289fc2f23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceFollow: 7
+  distanceOut: 10
+  speed: 2
+  shootCd: 2
