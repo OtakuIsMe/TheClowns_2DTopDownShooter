@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class EnemyController : MonoBehaviour
     private Transform enemyTransform;
     private float azimuthInDegrees;
     private SpriteRenderer mySpriteRenderer;
+
+    public int enemyHP = 1;
+    public Slider enemyHealthBar;
     void Start()
     {
+        enemyHealthBar.value = enemyHP;
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {
@@ -28,7 +33,7 @@ public class EnemyController : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            Vector3 playerPosition = playerTransform.position;
+            Vector3 playerPosition = playerTransform.transform.position;
             Vector3 enemyPosition = enemyTransform.position;
             Vector3 enemyPlayerVector = playerPosition - enemyPosition;
 
@@ -53,6 +58,32 @@ public class EnemyController : MonoBehaviour
             {
                 mySpriteRenderer.flipX = false;
             }
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        enemyHP -= damageAmount;
+        enemyHealthBar.value = enemyHP;
+        if(enemyHP > 0)
+        {
+            animator.SetTrigger("damage");
+            animator.SetBool("isChasing", true);
+        }
+        else
+        {
+            animator.SetTrigger("death");
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            enemyHealthBar.gameObject.SetActive(false);
+            this.enabled = false;
+        }
+    }
+
+    public void PlayerDamage()
+    {
+        if (!playerTransform.GetComponent<PlayerCollision>().isInvincible)
+        {
+            playerTransform.GetComponent<PlayerCollision>().TakeDamage();
         }
     }
 }
