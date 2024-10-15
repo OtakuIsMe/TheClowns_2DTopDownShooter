@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
     private float azimuthInDegrees;
     private SpriteRenderer mySpriteRenderer;
     private bool isShooting = false;
+    public static EnemyController Instance;
+    public static Vector3 enemyPlayerVector;
     void Start()
     {
         GameObject player = GameObject.Find("Player");
@@ -34,7 +36,7 @@ public class EnemyController : MonoBehaviour
         {
             Vector3 playerPosition = playerTransform.position;
             Vector3 enemyPosition = enemyTransform.position;
-            Vector3 enemyPlayerVector = playerPosition - enemyPosition;
+            enemyPlayerVector = playerPosition - enemyPosition;
 
             float azimuthInRadians = Mathf.Atan2(enemyPlayerVector.y, enemyPlayerVector.x);
 
@@ -61,20 +63,17 @@ public class EnemyController : MonoBehaviour
 
             if (distance > distanceFollow && distance < distanceOut)
             {
-                Debug.Log("Mid");
                 animator.SetBool("IsShoot", false);
                 animator.SetBool("IsRun", true);
                 MoveEnemy(enemyPlayerVector, speed);
             }
             else if (distance > distanceOut)
             {
-                Debug.Log("Long");
                 animator.SetBool("IsShoot", false);
                 animator.SetBool("IsRun", false);
             }
             else
             {
-                Debug.Log("Near");
                 if (!isShooting)
                 {
                     StartCoroutine(EnemyShooting());
@@ -97,15 +96,12 @@ public class EnemyController : MonoBehaviour
     IEnumerator EnemyShooting()
     {
         isShooting = true;
-        Debug.Log("Shooting Started");
         animator.SetBool("IsRun", false);
         animator.SetBool("IsShoot", true);
 
         yield return new WaitForSeconds(shootCd);
 
         animator.SetBool("IsShoot", false);
-
-        Debug.Log("Shooting Ended");
         isShooting = false;
     }
 }
