@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject gameOverUI;
-
+    public Animator myAnimator;
+    public PlayerController playerController;
+    public static bool isGameOver = false;
     private void Start()
     {
         //Cursor.visible = false;
@@ -28,13 +30,26 @@ public class GameManagerScript : MonoBehaviour
     }
 
     public void gameOver()
-    {   
-        gameOverUI.SetActive(true);
+    {
+        gameOverUI.SetActive(true); 
+
+        if (playerController != null)
+        {
+            Destroy(playerController);
+            playerController = null;
+        }
+        Debug.Log("Game over screen shown.");
+    }
+
+    public void GoToScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        myAnimator = playerController.GetComponent<Animator>();
         Debug.Log("Restart has used.");
     }
 

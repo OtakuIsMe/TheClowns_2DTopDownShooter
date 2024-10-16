@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -22,7 +20,6 @@ public class EnemyController : MonoBehaviour
     public static Vector3 enemyPlayerVector;
     public static float moveSpeedStatic;
     public static EnemyController instance;
-
     void Start()
     {
         if (instance == null)
@@ -44,7 +41,7 @@ public class EnemyController : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            Vector3 playerPosition = playerTransform.transform.position;
+            Vector3 playerPosition = playerTransform.position;
             Vector3 enemyPosition = enemyTransform.position;
             enemyPlayerVector = playerPosition - enemyPosition;
 
@@ -68,6 +65,26 @@ public class EnemyController : MonoBehaviour
             else
             {
                 mySpriteRenderer.flipX = false;
+            }
+            float distance = CountDistance(playerPosition, enemyPosition);
+
+            if (distance > distanceFollow && distance < distanceOut)
+            {
+                animator.SetBool("IsShoot", false);
+                animator.SetBool("IsRun", true);
+                MoveEnemy(enemyPlayerVector, speed);
+            }
+            else if (distance > distanceOut)
+            {
+                animator.SetBool("IsShoot", false);
+                animator.SetBool("IsRun", false);
+            }
+            else
+            {
+                if (!isShooting)
+                {
+                    StartCoroutine(EnemyShooting());
+                }
             }
         }
     }
@@ -97,13 +114,5 @@ public class EnemyController : MonoBehaviour
     public static void setMoveSpeed(float newMoveSpeed)
     {
         instance.speed = newMoveSpeed;
-    }
-
-    public void PlayerDamage()
-    {
-        if (!playerTransform.GetComponent<PlayerCollision>().isInvincible)
-        {
-            playerTransform.GetComponent<PlayerCollision>().TakeDamage();
-        }
     }
 }

@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class HealthManager : MonoBehaviour
 {
     public static int health = 3;
 
     public Image[] hearts;
-
     public Sprite fullHeart;
     public Sprite emptyHeart;
-
-    private void Awake()
+    void Awake()
     {
         health = 3;
     }
@@ -21,6 +20,7 @@ public class HealthManager : MonoBehaviour
         {
             img.sprite = emptyHeart;
         }
+
         for (int i = 0; i < health; i++)
         {
             hearts[i].sprite = fullHeart;

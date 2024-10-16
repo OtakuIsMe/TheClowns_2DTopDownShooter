@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887604123578ea34ea8691bd5d6984ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePerBullet: 1
+  target: Player
 --- !u!50 &4647743399800135785
 Rigidbody2D:
   serializedVersion: 4

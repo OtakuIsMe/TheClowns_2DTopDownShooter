@@ -19,7 +19,6 @@ public class EnemyHealth : MonoBehaviour
         {
             hasTakenDamage = true;
             enemyHealth -= BulletController.damagePerBulletStatic;
-            Debug.Log(enemyHealth);
             oldMoveSpeed = EnemyController.moveSpeedStatic;
             if (enemyHealth <= 0)
             {
