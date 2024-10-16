@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        PlayerController.setMoveSpeed(0);
+        EnemyController.setMoveSpeed(0);
         myAnimator.SetTrigger("BeDeath");
         yield return new WaitForSeconds(1f);
         hasTakenDamage = false;

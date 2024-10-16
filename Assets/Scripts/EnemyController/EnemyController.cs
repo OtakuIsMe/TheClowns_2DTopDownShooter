@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -22,15 +23,12 @@ public class EnemyController : MonoBehaviour
     public static float moveSpeedStatic;
     public static EnemyController instance;
 
-    public int enemyHP = 1;
-    public Slider enemyHealthBar;
     void Start()
     {
         if (instance == null)
         {
             instance = this;
         }
-        enemyHealthBar.value = enemyHP;
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {
@@ -74,22 +72,31 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageAmount)
+    private float CountDistance(Vector3 a, Vector3 b)
     {
-        enemyHP -= damageAmount;
-        enemyHealthBar.value = enemyHP;
-        if(enemyHP > 0)
-        {
-            animator.SetTrigger("damage");
-            animator.SetBool("isChasing", true);
-        }
-        else
-        {
-            animator.SetTrigger("death");
-            GetComponent<CapsuleCollider2D>().enabled = false;
-            enemyHealthBar.gameObject.SetActive(false);
-            this.enabled = false;
-        }
+        return Vector3.Distance(a, b);
+    }
+
+    private void MoveEnemy(Vector3 moveVector, float speed)
+    {
+        Vector3 direction = moveVector.normalized;
+        enemyTransform.Translate(direction * speed * Time.deltaTime);
+    }
+
+    IEnumerator EnemyShooting()
+    {
+        isShooting = true;
+        animator.SetBool("IsRun", false);
+        animator.SetBool("IsShoot", true);
+
+        yield return new WaitForSeconds(shootCd);
+
+        animator.SetBool("IsShoot", false);
+        isShooting = false;
+    }
+    public static void setMoveSpeed(float newMoveSpeed)
+    {
+        instance.speed = newMoveSpeed;
     }
 
     public void PlayerDamage()
