@@ -15,11 +15,17 @@ public class EnemyController : MonoBehaviour
     private Transform enemyTransform;
     private float azimuthInDegrees;
     private SpriteRenderer mySpriteRenderer;
-    private bool isShooting = false;
+    public static bool isShooting = false;
     public static EnemyController Instance;
     public static Vector3 enemyPlayerVector;
+    public static float moveSpeedStatic;
+    public static EnemyController instance;
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {
@@ -28,6 +34,7 @@ public class EnemyController : MonoBehaviour
         enemyTransform = GetComponent<Transform>();
         animator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        moveSpeedStatic = speed;
     }
 
     void Update()
@@ -103,5 +110,9 @@ public class EnemyController : MonoBehaviour
 
         animator.SetBool("IsShoot", false);
         isShooting = false;
+    }
+    public static void setMoveSpeed(float newMoveSpeed)
+    {
+        instance.speed = newMoveSpeed;
     }
 }

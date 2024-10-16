@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    [SerializeField] GameObject bulletObject;
+    [SerializeField] float bulletSpeed = 9f;
     private PlayerControls playerControls;
     private Animator myAnimator;
 
@@ -26,6 +28,15 @@ public class Attack : MonoBehaviour
     private void Shoot()
     {
         myAnimator.SetBool("Attack", true);
+        GameObject bullet = Instantiate(bulletObject, transform.position, Quaternion.identity);
+        Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        Vector3 BulletMove = (mousePos - transform.position).normalized;
+        if (bulletRigidbody != null)
+        {
+            bulletRigidbody.velocity = BulletMove.normalized * bulletSpeed;
+        }
         StartCoroutine(RemoveAttackTriggerAfterDelay(0.5f));
     }
 
