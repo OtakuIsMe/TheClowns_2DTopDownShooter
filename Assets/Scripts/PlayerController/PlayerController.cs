@@ -6,20 +6,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] float moveSpeed = 5f;
+    public static float moveSpeedStatic;
 
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
+    public static PlayerController instance;
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        moveSpeedStatic = moveSpeed;
     }
 
     private void OnEnable()
@@ -70,5 +77,10 @@ public class PlayerController : MonoBehaviour
         {
             mySpriteRenderer.flipX = false;
         }
+    }
+
+    public static void setMoveSpeed(float newMoveSpeed)
+    {
+        instance.moveSpeed = newMoveSpeed;
     }
 }
