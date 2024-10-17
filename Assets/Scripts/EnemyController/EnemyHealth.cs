@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
             oldMoveSpeed = EnemyController.moveSpeedStatic;
             if (enemyHealth <= 0)
             {
+                SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
             }
             else

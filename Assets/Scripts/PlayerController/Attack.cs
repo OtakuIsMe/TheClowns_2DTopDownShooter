@@ -29,6 +29,7 @@ public class Attack : MonoBehaviour
     {
         if (myAnimator != null)
         {
+            SoundController.instance.Playthisound("shoot", 5f);
             myAnimator.SetBool("Attack", true);
             GameObject bullet = Instantiate(bulletObject, transform.position, Quaternion.identity);
             Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();

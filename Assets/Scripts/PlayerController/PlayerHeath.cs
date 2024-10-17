@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
+                SoundController.instance.Playthisound("hit", 5f);
                 StartCoroutine(BeingShootingEffect());
             }
         }
