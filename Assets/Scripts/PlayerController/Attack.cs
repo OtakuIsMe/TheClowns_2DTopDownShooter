@@ -39,6 +39,7 @@ public class Attack : MonoBehaviour
             {
                 bulletRigidbody.velocity = BulletMove.normalized * bulletSpeed;
             }
+            AudioManager.instance.Play("Shoot");
             StartCoroutine(RemoveAttackTriggerAfterDelay(0.5f));
         }
         else

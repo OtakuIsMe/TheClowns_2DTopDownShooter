@@ -43,7 +43,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         GameManagerScript.isGameOver = true;
-        FindObjectOfType<GameManagerScript>().gameOver(); 
+        AudioManager.instance.Play("GameOver");
+        gameObject.SetActive(false);
+        FindObjectOfType<GameManagerScript>().gameOver();
     }
 
     private IEnumerator BeingShootingEffect()

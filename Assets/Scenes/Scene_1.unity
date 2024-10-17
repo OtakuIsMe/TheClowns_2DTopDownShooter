@@ -2226,8 +2226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.3, y: 221.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -210.11757, y: 222.19954}
+  m_SizeDelta: {x: 230.3649, y: 50.7991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367984468
 MonoBehaviour:
@@ -8734,6 +8734,7 @@ GameObject:
   - component: {fileID: 1583125241}
   - component: {fileID: 1583125240}
   - component: {fileID: 1583125242}
+  - component: {fileID: 1583125243}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8790,6 +8791,47 @@ MonoBehaviour:
   - {fileID: 901569020}
   fullHeart: {fileID: 21300000, guid: 2f343342ed86ab240a392c3bacffbd75, type: 3}
   emptyHeart: {fileID: 21300000, guid: 614d742fe8e3b704b9239ea682b30be1, type: 3}
+--- !u!114 &1583125243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583125239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86e0044c506744448c466d84cdb4e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: GameOver
+    clip: {fileID: 8300000, guid: 3c02fd448d69b134997673c4018c1f43, type: 3}
+    mixer: {fileID: 24300002, guid: 7e2ae997adf54d6409aa7491b1f60a6c, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: a795088fe145e424e94384105641e09c, type: 3}
+    mixer: {fileID: 24300002, guid: 7e2ae997adf54d6409aa7491b1f60a6c, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyDamage
+    clip: {fileID: 8300000, guid: 3a2b1ce9da09cef42b1b2d0738839efc, type: 3}
+    mixer: {fileID: 24300002, guid: 7e2ae997adf54d6409aa7491b1f60a6c, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GameCompleted
+    clip: {fileID: 8300000, guid: aed25e27c31c5554d9759f74ac4510a8, type: 3}
+    mixer: {fileID: 24300002, guid: 7e2ae997adf54d6409aa7491b1f60a6c, type: 2}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &1583229267
 GameObject:
   m_ObjectHideFlags: 0

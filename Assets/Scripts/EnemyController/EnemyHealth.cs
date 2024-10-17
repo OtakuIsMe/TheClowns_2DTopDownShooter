@@ -46,6 +46,8 @@ public class EnemyHealth : MonoBehaviour
         }
 
         GameManagerScript.isGameWinner = true;
+        AudioManager.instance.Play("GameCompleted");
+        gameObject.SetActive(false);
         FindObjectOfType<GameManagerScript>().gameWinner();
     }
 
@@ -56,6 +58,7 @@ public class EnemyHealth : MonoBehaviour
         {
             EnemyController.setMoveSpeed(0);
             myAnimator.SetBool("BeShoot", true);
+            AudioManager.instance.Play("EnemyDamage");
             yield return new WaitForSeconds(0.2f);
             myAnimator.SetBool("BeShoot", false);
             EnemyController.setMoveSpeed(oldMoveSpeed);
