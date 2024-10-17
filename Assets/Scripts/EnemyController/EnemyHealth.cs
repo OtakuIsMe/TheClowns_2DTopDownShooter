@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +19,10 @@ public class EnemyHealth : MonoBehaviour
         {
             hasTakenDamage = true;
             enemyHealth -= BulletController.damagePerBulletStatic;
-            Debug.Log(enemyHealth);
             oldMoveSpeed = EnemyController.moveSpeedStatic;
             if (enemyHealth <= 0)
             {
+                SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
             }
             else
@@ -34,21 +34,33 @@ public class EnemyHealth : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        EnemyController.setMoveSpeed(0);
-        myAnimator.SetTrigger("BeDeath");
-        yield return new WaitForSeconds(1f);
-        hasTakenDamage = false;
-        Destroy(gameObject);
+        if (myAnimator != null)
+        {
+            EnemyController.setMoveSpeed(0);
+            myAnimator.SetTrigger("BeDeath");
+            yield return new WaitForSeconds(1f);
+            hasTakenDamage = false;
+
+            FindObjectOfType<EnemyKillCount>().IncreaseKillCount();
+
+            Destroy(gameObject);
+        }
+
+        GameManagerScript.isGameWinner = true;
+        FindObjectOfType<GameManagerScript>().gameWinner();
     }
 
 
     private IEnumerator BeingShootingEffect()
     {
-        EnemyController.setMoveSpeed(0);
-        myAnimator.SetBool("BeShoot", true);
-        yield return new WaitForSeconds(0.2f);
-        myAnimator.SetBool("BeShoot", false);
-        EnemyController.setMoveSpeed(oldMoveSpeed);
-        hasTakenDamage = false;
+        if (myAnimator != null)
+        {
+            EnemyController.setMoveSpeed(0);
+            myAnimator.SetBool("BeShoot", true);
+            yield return new WaitForSeconds(0.2f);
+            myAnimator.SetBool("BeShoot", false);
+            EnemyController.setMoveSpeed(oldMoveSpeed);
+            hasTakenDamage = false;
+        }
     }
 }

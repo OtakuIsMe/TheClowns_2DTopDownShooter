@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHeath : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] float playerHealth = 3;
+    [SerializeField] float playerHealth = HealthManager.health;
     private Animator myAnimator;
     private float oldMoveSpeed;
 
@@ -12,18 +12,23 @@ public class PlayerHeath : MonoBehaviour
     {
         myAnimator = GetComponent<Animator>();
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("BulletEnemy"))
         {
             playerHealth -= BulletController.damagePerBulletStatic;
+            HealthManager.health = Mathf.CeilToInt(playerHealth); 
+
             oldMoveSpeed = PlayerController.moveSpeedStatic;
+
             if (playerHealth <= 0)
             {
                 StartCoroutine(DeathEffect());
             }
             else
             {
+                SoundController.instance.Playthisound("hit", 5f);
                 StartCoroutine(BeingShootingEffect());
             }
         }
@@ -31,16 +36,26 @@ public class PlayerHeath : MonoBehaviour
 
     private IEnumerator DeathEffect()
     {
-        PlayerController.setMoveSpeed(0);
-        myAnimator.SetTrigger("Death");
-        yield return new WaitForSeconds(1f);
+        if (myAnimator != null)
+        {
+            PlayerController.setMoveSpeed(0);
+            myAnimator.SetTrigger("Death");
+            yield return new WaitForSeconds(1f); 
+        }
+
+        GameManagerScript.isGameOver = true;
+        FindObjectOfType<GameManagerScript>().gameOver(); 
     }
+
     private IEnumerator BeingShootingEffect()
     {
-        PlayerController.setMoveSpeed(0);
-        myAnimator.SetBool("BeShoot", true);
-        yield return new WaitForSeconds(0.2f);
-        myAnimator.SetBool("BeShoot", false);
-        PlayerController.setMoveSpeed(oldMoveSpeed);
+        if (myAnimator != null)
+        {
+            PlayerController.setMoveSpeed(0);
+            myAnimator.SetBool("BeShoot", true);
+            yield return new WaitForSeconds(0.2f);
+            myAnimator.SetBool("BeShoot", false);
+            PlayerController.setMoveSpeed(oldMoveSpeed);
+        }
     }
 }

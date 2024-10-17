@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
     public static PlayerController instance;
-
+    private bool IsSoundStart = true;
     private void Awake()
     {
         if (instance == null)
@@ -55,7 +55,10 @@ public class PlayerController : MonoBehaviour
         myAnimator.SetFloat("moveX", direction.x);
         myAnimator.SetFloat("moveY", direction.y);
         myAnimator.SetFloat("speed", movement.magnitude);
-
+        if (movement != Vector2.zero && IsSoundStart)
+        {
+            StartCoroutine(EFSound());
+        }
     }
 
     private void Move()
@@ -63,6 +66,14 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement.normalized * (moveSpeed * Time.fixedDeltaTime));
     }
 
+    private IEnumerator EFSound()
+    {
+        IsSoundStart = false;
+        SoundController.instance.Playthisound("foot", 5f);
+        yield return new WaitForSeconds(0.35f);
+
+        IsSoundStart = true;
+    }
     private void AdjustPlayerFacingDirection()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
