@@ -17,6 +17,7 @@ public class Attack : MonoBehaviour
 
     private void OnEnable()
     {
+        myAnimator = GetComponent<Animator>();
         playerControls.Enable();
     }
     // Start is called before the first frame update
@@ -27,27 +28,43 @@ public class Attack : MonoBehaviour
 
     private void Shoot()
     {
+        if (this == null)
+        {
+            Debug.LogWarning("Attack component has been destroyed.");
+            return;
+        }
+
+        if (!gameObject.activeSelf)
+        {
+            Debug.LogWarning("Player is inactive, cannot shoot.");
+            return;
+        }
+
         if (myAnimator != null)
         {
-            SoundController.instance.Playthisound("shoot", 5f);
+            myAnimator = GetComponent<Animator>();
             myAnimator.SetBool("Attack", true);
+
             GameObject bullet = Instantiate(bulletObject, transform.position, Quaternion.identity);
             Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
-            Vector3 BulletMove = (mousePos - transform.position).normalized;
+            Vector3 bulletMove = (mousePos - transform.position).normalized;
+
             if (bulletRigidbody != null)
             {
-                bulletRigidbody.velocity = BulletMove.normalized * bulletSpeed;
+                bulletRigidbody.velocity = bulletMove * bulletSpeed;
             }
+
             AudioManager.instance.Play("Shoot");
             StartCoroutine(RemoveAttackTriggerAfterDelay(0.5f));
         }
         else
         {
             Debug.LogWarning("Animator is missing or has been destroyed.");
+            return;
         }
-        
     }
 
     private IEnumerator RemoveAttackTriggerAfterDelay(float delay)

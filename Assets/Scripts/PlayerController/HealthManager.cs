@@ -10,20 +10,35 @@ public class HealthManager : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public Animator myAnimator;
+
     void Awake()
     {
-        health = 3;
+        health = 3; 
+        myAnimator = GetComponent<Animator>();
     }
+
     void Update()
+    {
+        UpdateHealthUI();
+    }
+
+    void UpdateHealthUI()
     {
         foreach (Image img in hearts)
         {
-            img.sprite = emptyHeart;
+            if (img != null)
+            {
+                img.sprite = emptyHeart;
+            }
         }
 
         for (int i = 0; i < health; i++)
         {
-            hearts[i].sprite = fullHeart;
+            if (hearts[i] != null)
+            {
+                hearts[i].sprite = fullHeart;
+            }
         }
     }
 }

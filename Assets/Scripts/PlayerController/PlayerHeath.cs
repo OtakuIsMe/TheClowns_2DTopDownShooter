@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
         if (other.CompareTag("BulletEnemy"))
         {
             playerHealth -= BulletController.damagePerBulletStatic;
-            HealthManager.health = Mathf.CeilToInt(playerHealth); 
+            HealthManager.health = Mathf.CeilToInt(playerHealth);
 
             oldMoveSpeed = PlayerController.moveSpeedStatic;
 
@@ -28,7 +28,6 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                SoundController.instance.Playthisound("hit", 5f);
                 StartCoroutine(BeingShootingEffect());
             }
         }
@@ -40,13 +39,23 @@ public class PlayerHealth : MonoBehaviour
         {
             PlayerController.setMoveSpeed(0);
             myAnimator.SetTrigger("Death");
-            yield return new WaitForSeconds(1f); 
+            yield return new WaitForSeconds(1f);
         }
 
         GameManagerScript.isGameOver = true;
         AudioManager.instance.Play("GameOver");
-        gameObject.SetActive(false);
-        FindObjectOfType<GameManagerScript>().gameOver();
+
+        if (gameObject != null)
+        {
+            gameObject.SetActive(false);
+        }
+
+        var gameManager = FindObjectOfType<GameManagerScript>();
+
+        if (gameManager != null)
+        {
+            gameManager.gameOver();
+        }
     }
 
     private IEnumerator BeingShootingEffect()

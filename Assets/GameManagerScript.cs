@@ -12,34 +12,28 @@ public class GameManagerScript : MonoBehaviour
     public PlayerController playerController;
     public static bool isGameOver = false;
     public static bool isGameWinner = false;
+    private void Awake()
+    {
+        myAnimator = GetComponent<Animator>();
+    }
+
     private void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        myAnimator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        //if (gameOverUI.activeInHierarchy)
-        //{
-        //    Cursor.visible = true;
-        //    Cursor.lockState = CursorLockMode.None;
-        //}
-        //else
-        //{
-        //    Cursor.visible = false;
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //}
+       
     }
 
     public void gameOver()
     {
-        gameOverUI.SetActive(true); 
+        gameOverUI.SetActive(true);
 
         if (playerController != null)
         {
-            Destroy(playerController);
-            playerController = null;
+            playerController.gameObject.SetActive(false);
         }
         Debug.Log("Game over screen shown.");
     }
@@ -50,8 +44,7 @@ public class GameManagerScript : MonoBehaviour
 
         if (playerController != null)
         {
-            Destroy(playerController);
-            playerController = null;
+            playerController.gameObject.SetActive(false);
         }
         Debug.Log("Game winner!!");
     }
@@ -64,8 +57,7 @@ public class GameManagerScript : MonoBehaviour
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        myAnimator = playerController.GetComponent<Animator>();
-        Debug.Log("Restart has used.");
+        Debug.Log("Restart has been triggered.");
     }
 
     public void quit()

@@ -22,7 +22,6 @@ public class EnemyHealth : MonoBehaviour
             oldMoveSpeed = EnemyController.moveSpeedStatic;
             if (enemyHealth <= 0)
             {
-                SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
             }
             else
@@ -48,10 +47,19 @@ public class EnemyHealth : MonoBehaviour
 
         GameManagerScript.isGameWinner = true;
         AudioManager.instance.Play("GameCompleted");
-        gameObject.SetActive(false);
-        FindObjectOfType<GameManagerScript>().gameWinner();
-    }
 
+        if (gameObject != null)
+        {
+            gameObject.SetActive(false);
+        }
+
+        var gameManager = FindObjectOfType<GameManagerScript>();
+
+        if (gameManager != null)
+        {
+            gameManager.gameWinner();
+        }
+    }
 
     private IEnumerator BeingShootingEffect()
     {
