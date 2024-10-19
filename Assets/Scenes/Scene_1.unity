@@ -2950,6 +2950,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dbf1d375baf0145a23e8c6c9cdf63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds:
+  - name: Background
+    clip: {fileID: 8300000, guid: 64ff89969b55dc04d913ce714a3e4de1, type: 3}
+    mixer: {fileID: 24300002, guid: f90772b06f9b41845b3d3d0b2025c3b4, type: 2}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Gameover
+    clip: {fileID: 8300000, guid: db8b6d5877bef2c4a8af14fbe97fa43b, type: 3}
+    mixer: {fileID: 24300002, guid: f90772b06f9b41845b3d3d0b2025c3b4, type: 2}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LevelCompleted
+    clip: {fileID: 8300000, guid: 72e07ae39c221e7438a140775f887e35, type: 3}
+    mixer: {fileID: 24300002, guid: f90772b06f9b41845b3d3d0b2025c3b4, type: 2}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &334582199
 Transform:
   m_ObjectHideFlags: 0
@@ -2999,8 +3021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.3, y: 221.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -213.05682, y: 221.8}
+  m_SizeDelta: {x: 224.4864, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367984468
 MonoBehaviour:

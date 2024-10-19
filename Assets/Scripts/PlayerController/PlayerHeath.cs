@@ -25,6 +25,10 @@ public class PlayerHealth : MonoBehaviour
             if (playerHealth <= 0)
             {
                 StartCoroutine(DeathEffect());
+
+                SoundController.instance.Stop("Background");
+                new WaitForSeconds(2f);
+                SoundController.instance.Play("Gameover");
             }
             else
             {

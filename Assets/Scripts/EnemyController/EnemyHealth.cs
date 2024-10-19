@@ -24,6 +24,10 @@ public class EnemyHealth : MonoBehaviour
             {
                 SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
+                
+                SoundController.instance.Stop("Background");
+                new WaitForSeconds(2f);
+                SoundController.instance.Play("LevelCompleted");
             }
             else
             {
