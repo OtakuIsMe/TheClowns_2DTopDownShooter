@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float playerHealth = HealthManager.health;
     private Animator myAnimator;
     private float oldMoveSpeed;
+    private bool hasTakenDamage = false;
 
     private void Awake()
     {
@@ -15,10 +16,11 @@ public class PlayerHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("BulletEnemy"))
+        if (other.CompareTag("BulletEnemy") && !hasTakenDamage)
         {
+            hasTakenDamage = true;
             playerHealth -= BulletController.damagePerBulletStatic;
-            HealthManager.health = Mathf.CeilToInt(playerHealth); 
+            HealthManager.health = Mathf.CeilToInt(playerHealth);
 
             oldMoveSpeed = PlayerController.moveSpeedStatic;
 
@@ -30,7 +32,6 @@ public class PlayerHealth : MonoBehaviour
                 SoundController.instance.Stop("Background");
                 new WaitForSeconds(2f);
                 SoundController.instance.Play("Gameover");
-                gameObject.SetActive(false);
             }
             else
             {
@@ -46,7 +47,8 @@ public class PlayerHealth : MonoBehaviour
         {
             PlayerController.setMoveSpeed(0);
             myAnimator.SetTrigger("Death");
-            yield return new WaitForSeconds(1f); 
+            yield return new WaitForSeconds(1f);
+            // hasTakenDamage = false;
         }
     }
 
@@ -59,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             myAnimator.SetBool("BeShoot", false);
             PlayerController.setMoveSpeed(oldMoveSpeed);
+            hasTakenDamage = false;
         }
     }
 }
