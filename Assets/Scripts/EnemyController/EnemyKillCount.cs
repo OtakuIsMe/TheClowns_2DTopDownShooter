@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class EnemyKillCount : MonoBehaviour
 {
-    public static int enemyKillCount = 0;
+    public static int enemyKillCount;
     public TextMeshProUGUI killCountText;
 
     private void Awake()
     {
         enemyKillCount = 0;
+    }
+    private void Update()
+    {
+        killCountText.text = enemyKillCount.ToString();
     }
     private void Start()
     {

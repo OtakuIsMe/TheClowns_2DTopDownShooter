@@ -5214,6 +5214,10 @@ PrefabInstance:
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5845410134226274933, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
+      propertyPath: killsText
+      value: 
+      objectReference: {fileID: 367984468}
     - target: {fileID: 6878868148471812578, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
       propertyPath: killCountText
       value: 

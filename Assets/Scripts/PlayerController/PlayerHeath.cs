@@ -24,11 +24,13 @@ public class PlayerHealth : MonoBehaviour
 
             if (playerHealth <= 0)
             {
+                GameManagerScript.isGameOver = true;
                 StartCoroutine(DeathEffect());
 
                 SoundController.instance.Stop("Background");
                 new WaitForSeconds(2f);
                 SoundController.instance.Play("Gameover");
+                gameObject.SetActive(false);
             }
             else
             {
@@ -46,9 +48,6 @@ public class PlayerHealth : MonoBehaviour
             myAnimator.SetTrigger("Death");
             yield return new WaitForSeconds(1f); 
         }
-
-        GameManagerScript.isGameOver = true;
-        FindObjectOfType<GameManagerScript>().gameOver(); 
     }
 
     private IEnumerator BeingShootingEffect()

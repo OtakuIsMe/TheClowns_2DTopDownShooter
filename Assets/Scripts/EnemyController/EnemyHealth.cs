@@ -22,12 +22,16 @@ public class EnemyHealth : MonoBehaviour
             oldMoveSpeed = EnemyController.moveSpeedStatic;
             if (enemyHealth <= 0)
             {
+                PlayerController.numberOfEnemyKill++;
+                GameManagerScript.isGameOver = true;
+
                 SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
                 
                 SoundController.instance.Stop("Background");
                 new WaitForSeconds(2f);
                 SoundController.instance.Play("LevelCompleted");
+                gameObject.SetActive(false);
             }
             else
             {
@@ -45,13 +49,8 @@ public class EnemyHealth : MonoBehaviour
             yield return new WaitForSeconds(1f);
             hasTakenDamage = false;
 
-            FindObjectOfType<EnemyKillCount>().IncreaseKillCount();
-
             Destroy(gameObject);
         }
-
-        GameManagerScript.isGameWinner = true;
-        FindObjectOfType<GameManagerScript>().gameWinner();
     }
 
 

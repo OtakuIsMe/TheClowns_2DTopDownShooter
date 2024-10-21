@@ -10,8 +10,13 @@ public class GameManagerScript : MonoBehaviour
     public GameObject gameWinnerUI;
     public Animator myAnimator;
     public PlayerController playerController;
-    public static bool isGameOver = false;
-    public static bool isGameWinner = false;
+    public static bool isGameOver;
+    public static bool isGameWinner;
+    private void Awake()
+    {
+        isGameOver = false;
+        isGameWinner = false;
+    }
     private void Start()
     {
         //Cursor.visible = false;
@@ -30,31 +35,35 @@ public class GameManagerScript : MonoBehaviour
         //    Cursor.visible = false;
         //    Cursor.lockState = CursorLockMode.Locked;
         //}
-    }
-
-    public void gameOver()
-    {
-        gameOverUI.SetActive(true); 
-
-        if (playerController != null)
+        if (isGameOver)
         {
-            Destroy(playerController);
-            playerController = null;
+            gameOverUI.SetActive(true);
         }
-        Debug.Log("Game over screen shown.");
     }
 
-    public void gameWinner()
-    {
-        gameWinnerUI.SetActive(true);
+    //public void gameOver()
+    //{
+    //    gameOverUI.SetActive(true); 
 
-        if (playerController != null)
-        {
-            Destroy(playerController);
-            playerController = null;
-        }
-        Debug.Log("Game winner!!");
-    }
+    //    if (playerController != null)
+    //    {
+    //        Destroy(playerController);
+    //        playerController = null;
+    //    }
+    //    Debug.Log("Game over screen shown.");
+    //}
+
+    //public void gameWinner()
+    //{
+    //    gameWinnerUI.SetActive(true);
+
+    //    if (playerController != null)
+    //    {
+    //        Destroy(playerController);
+    //        playerController = null;
+    //    }
+    //    Debug.Log("Game winner!!");
+    //}
 
     public void GoToScene(string sceneName)
     {
@@ -64,8 +73,6 @@ public class GameManagerScript : MonoBehaviour
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        myAnimator = playerController.GetComponent<Animator>();
-        Debug.Log("Restart has used.");
     }
 
     public void quit()

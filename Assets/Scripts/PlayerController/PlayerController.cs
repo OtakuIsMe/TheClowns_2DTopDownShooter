@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,9 +16,14 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
     public static PlayerController instance;
+
+    public static int numberOfEnemyKill;
+    public TextMeshProUGUI killsText;
+
     private bool IsSoundStart = true;
     private void Awake()
     {
+        numberOfEnemyKill = 0;
         if (instance == null)
         {
             instance = this;
@@ -36,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        killsText.text = numberOfEnemyKill.ToString();
         PlayerInput();
         Vector3 mousePos = Input.mousePosition;
     }
