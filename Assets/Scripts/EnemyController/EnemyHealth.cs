@@ -9,10 +9,12 @@ public class EnemyHealth : MonoBehaviour
     private Animator myAnimator;
     private float oldMoveSpeed;
     private bool hasTakenDamage = false;
+
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
-    }
+    } 
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("BulletPlayer") && !hasTakenDamage)
@@ -23,14 +25,9 @@ public class EnemyHealth : MonoBehaviour
             if (enemyHealth <= 0)
             {
                 PlayerController.numberOfEnemyKill++;
-                GameManagerScript.isGameOver = true;
 
                 SoundController.instance.Playthisound("Explosions", 5f);
                 StartCoroutine(DeathEffect());
-
-                SoundController.instance.Stop("Background");
-                new WaitForSeconds(2f);
-                SoundController.instance.Play("LevelCompleted");
             }
             else
             {

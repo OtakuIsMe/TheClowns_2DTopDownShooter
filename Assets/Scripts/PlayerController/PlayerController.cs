@@ -21,9 +21,15 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI killsText;
 
     private bool IsSoundStart = true;
+
+    public List<EnemyHealth> enemies = new List<EnemyHealth>();
+    public int numberOfEnemies;
+
     private void Awake()
     {
         numberOfEnemyKill = 0;
+        numberOfEnemies = enemies.Count;
+        Debug.Log(numberOfEnemies);
         if (instance == null)
         {
             instance = this;
@@ -45,6 +51,14 @@ public class PlayerController : MonoBehaviour
         killsText.text = numberOfEnemyKill.ToString();
         PlayerInput();
         Vector3 mousePos = Input.mousePosition;
+        if (numberOfEnemyKill >= 3)
+        {
+            GameManagerScript.isGameWinner = true;
+
+            SoundController.instance.Stop("Background");
+            new WaitForSeconds(2f);
+            SoundController.instance.Play("LevelCompleted");
+        }
     }
 
     private void FixedUpdate()
