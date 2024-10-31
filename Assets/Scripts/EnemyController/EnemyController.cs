@@ -16,8 +16,7 @@ public class EnemyController : MonoBehaviour
     private float azimuthInDegrees;
     private SpriteRenderer mySpriteRenderer;
     public static bool isShooting = false;
-    public static EnemyController Instance;
-    public static Vector3 enemyPlayerVector;
+    public Vector3 enemyPlayerVector;
     public static float moveSpeedStatic;
     public static EnemyController instance;
     void Start()

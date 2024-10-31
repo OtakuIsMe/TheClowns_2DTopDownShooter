@@ -18,7 +18,8 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BulletMove = EnemyController.enemyPlayerVector;
+        BulletMove = EnemyController.instance.enemyPlayerVector;
+        Debug.Log(BulletMove);
         if (EnemyController.isShooting)
         {
             if (IsShootingProgress)
