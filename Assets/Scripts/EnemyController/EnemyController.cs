@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     private Transform enemyTransform;
     private float azimuthInDegrees;
     private SpriteRenderer mySpriteRenderer;
-    public static bool isShooting = false;
+    public bool isShooting = false;
     public Vector3 enemyPlayerVector;
     public static float moveSpeedStatic;
     public static EnemyController instance;

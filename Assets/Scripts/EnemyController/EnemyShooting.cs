@@ -11,16 +11,19 @@ public class EnemyShooting : MonoBehaviour
     Vector3 BulletMove;
     private bool IsShootingProgress = true;
 
+    private EnemyController enemyController;
+
     void Start()
     {
+        enemyController = GetComponent<EnemyController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        BulletMove = EnemyController.instance.enemyPlayerVector;
+        BulletMove = enemyController.enemyPlayerVector;
         Debug.Log(BulletMove);
-        if (EnemyController.isShooting)
+        if (enemyController.isShooting)
         {
             if (IsShootingProgress)
             {
