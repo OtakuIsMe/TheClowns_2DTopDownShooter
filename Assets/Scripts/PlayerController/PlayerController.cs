@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         killsText.text = numberOfEnemyKill.ToString();
         PlayerInput();
         Vector3 mousePos = Input.mousePosition;
-        if (numberOfEnemyKill > numberOfEnemies)
+        if (numberOfEnemyKill >= 3)
         {
             GameManagerScript.isGameWinner = true;
 
