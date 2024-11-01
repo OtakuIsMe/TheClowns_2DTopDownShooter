@@ -5442,7 +5442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3608641456878045437, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
       propertyPath: playerHealth
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5845410134226274933, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
       propertyPath: killsText
@@ -5450,7 +5450,7 @@ PrefabInstance:
       objectReference: {fileID: 367984468}
     - target: {fileID: 5845410134226274933, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
       propertyPath: moveSpeed
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6878868148471812578, guid: ebfb4cf0d7b5ac146be4d59671f8bf2b, type: 3}
       propertyPath: killCountText
